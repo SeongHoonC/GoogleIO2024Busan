@@ -1,26 +1,11 @@
-package com.example.googleio2024
+package com.example.googleio2024.gdgbusanlist.pastevents
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.googleio2024.Event
 import com.example.googleio2024.databinding.ItemPastEventBinding
-
-class PastEventsAdapter(
-    private val events: List<Event>,
-) : RecyclerView.Adapter<PastEventViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): PastEventViewHolder = PastEventViewHolder.from(parent)
-
-    override fun onBindViewHolder(
-        holder: PastEventViewHolder,
-        position: Int,
-    ) = holder.bind(events[position])
-
-    override fun getItemCount(): Int = events.size
-}
 
 class PastEventViewHolder(
     private val binding: ItemPastEventBinding,
