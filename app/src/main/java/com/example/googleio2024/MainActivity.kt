@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -46,22 +47,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
-                    LazyColumn(
-                        modifier = Modifier.padding(innerPadding),
-                    ) {
-                        item { EventTitle() }
-                        item {
-                            GoogleIo2024(
-                                modifier =
-                                    Modifier
-                                        .padding(horizontal = 12.dp),
-                            )
-                        }
-                        item { OrganizersTitle() }
-                        item { Organizers(gdgBusanOrganizers) }
-                        item { PastEventTitle() }
-                        PastEvents(gdgBusanEvents + gdgBusanEvents)
-                    }
+                    GdgBusanScreen(innerPadding)
                 }
             }
         }
@@ -69,10 +55,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+private fun GdgBusanScreen(innerPadding: PaddingValues) {
+    LazyColumn(
+        modifier = Modifier.padding(innerPadding),
+    ) {
+        item { EventTitle() }
+        item { GoogleIo2024(modifier = Modifier.padding(horizontal = 12.dp)) }
+        item { Organizers(gdgBusanOrganizers) }
+        (0..4).forEach { _ -> PastEvents(gdgBusanEvents) }
+    }
+}
+
+@Composable
 private fun PastEventTitle() {
     Text(
         modifier = Modifier.padding(16.dp),
-        text = "Past Event",
+        text = "Past Events",
         fontSize = 24.sp,
         fontWeight = FontWeight.Bold,
     )
@@ -89,17 +87,8 @@ private fun EventTitle() {
 }
 
 @Composable
-private fun OrganizersTitle() {
-    Text(
-        modifier = Modifier.padding(16.dp),
-        text = "Organizers",
-        fontSize = 24.sp,
-        fontWeight = FontWeight.Bold,
-    )
-}
-
-@Composable
 private fun Organizers(organizers: List<Organizer>) {
+    OrganizersTitle()
     LazyRow(
         modifier = Modifier.wrapContentSize(),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -123,10 +112,24 @@ private fun Organizers(organizers: List<Organizer>) {
     }
 }
 
+@Composable
+private fun OrganizersTitle() {
+    Text(
+        modifier = Modifier.padding(16.dp),
+        text = "Organizers",
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+    )
+}
+
 private fun LazyListScope.PastEvents(events: List<Event>) {
+    item { PastEventTitle() }
     items(events) { event ->
         EventCard(
-            modifier = Modifier.wrapContentHeight().padding(vertical = 12.dp, horizontal = 16.dp),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .padding(vertical = 12.dp, horizontal = 16.dp),
             event = event,
         )
     }
