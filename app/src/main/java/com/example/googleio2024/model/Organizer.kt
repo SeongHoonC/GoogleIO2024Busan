@@ -1,5 +1,5 @@
 
-package com.example.googleio2024
+package com.example.googleio2024.model
 
 data class Organizer(
     val id: Long,
