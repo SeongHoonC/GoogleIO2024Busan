@@ -1,4 +1,4 @@
-package com.example.googleio2024
+package com.example.googleio2024.model
 
 val gdgBusanOrganizers =
     listOf(
@@ -114,11 +114,3 @@ val gdgBusanEvents =
             category = "Conference",
         ),
     )
-
-data class Event(
-    val id: Long,
-    val name: String,
-    val imageUrl: String,
-    val date: String,
-    val category: String,
-)
